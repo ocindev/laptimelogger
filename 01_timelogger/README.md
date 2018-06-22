@@ -10,7 +10,7 @@ JSON Data Format:
  "loggedTimes" : {
     "steamids" : {
         "<steamId>" : {
-        "name" : <name>"
+        "name" : "<name>"
         },
         "<steamId>" : {
         "name" : "<name>"
