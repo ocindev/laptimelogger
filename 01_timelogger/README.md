@@ -9,8 +9,12 @@ JSON Data Format:
 ...
  "loggedTimes" : {
     "steamids" : {
-        "<steamId>" : "<name>",
-        "<steamId>" : "<name>"
+        "<steamId>" : {
+        "name" : <name>"
+        },
+        "<steamId>" : {
+        "name" : "<name>"
+        }
     },
     "vehicles" : {
         "<vehicleId>" : {
