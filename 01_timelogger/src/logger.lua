@@ -5,7 +5,7 @@ local addon_storage = ...
 local config = addon_storage.config
 
 local addon_data = addon_storage.data
-local intkey_table_names = {steamids = true, vehicles = true, lapTimes = true }
+local intkey_table_names = {vehicles = true}
 addon_data = table.deep_copy_normalized( addon_data, intkey_table_names )
 addon_storage.data = addon_data
 
@@ -15,6 +15,7 @@ local loggedTimes = loggedTimes
 if not loggedTimes.vehicles then loggedTimes.vehicles = {} end
 vehicles = loggedTimes.vehicles
 local vehicles = vehicles
+DeepPrint(vehicles)
 if not loggedTimes.steamids then loggedTimes.steamids = {} end
 steamids = loggedTimes.steamids
 local steamids = steamids
@@ -37,6 +38,21 @@ local msgNew = "New personal best: "
 
 local persist_at = GetServerUptimeMs() + 30000
 
+
+function DeepPrint (e)
+    -- if e is a table, we should iterate over its elements
+    if type(e) == "table" then
+        for k,v in pairs(e) do -- for every element in the table
+            print("KeyType: " .. type(k))
+            print("Key: " .. k)
+            DeepPrint(v)       -- recursively repeat the same procedure
+        end
+    else -- if not, we can just print it
+        print("ValueType: " .. type(e))
+        print("Value: " .. e)
+    end
+end
+
 --converts the time from milliseconds to xx:xx:xx format
 function millisecondsConverter(lapTime)
     if lapTime <= 0 then
@@ -52,17 +68,21 @@ function millisecondsConverter(lapTime)
 end
 
 
+function contains(table, key)
+    return table[key] ~= nil
+end
+
+
+
+
 function updateSteamIdTable(steamid, name)
-    if not steamids[steamid] then
-        steamids[steamid] = {}
-    end
-    steamids[steamid].name = name
+    steamids[steamid] = name
     dirtyFlag = true     
 end
 
 function retrieveSteamID(name)
     for k,v in pairs(steamids) do
-        if v.name == name then
+        if v == name then
             return k
         end
     end
@@ -79,7 +99,7 @@ function add_new_vehicleEntry(event, participant)
     if not vehicles[info.vehicleId].lapTimes then
         vehicles[info.vehicleId].lapTimes = {}
     end
-
+  
     vTimes = vehicles[info.vehicleId].lapTimes
     
     local logtime = os.date("%Y-%m-%d %H:%M:%S")

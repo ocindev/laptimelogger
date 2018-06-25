@@ -1,9 +1,9 @@
 # Laptime logger for Project Cars 2 Dedicated Server
 
 
-This lua addon logs valid personal best laptimes for participants on the Dedicated Server sorted by the vehicle. It outputs the results into a *_data.json file in the lua_config folder.
+This lua addon logs valid personal best laptimes for participants on the Dedicated Server sorted by the vehicle. It outputs the result into a *_data.json file in the lua_config folder.
 
-JSON Data Format:
+## JSON Data Format:
 
 ```javascript
 ...
@@ -24,7 +24,7 @@ JSON Data Format:
                     "name" : "<name>",
                     "refId" : "<refId>",
                     "vehicleId" : "<vehicleId>",
-                    "isWet" : "<isWet",
+                    "isWet" : "<isWet>",
                     "rank" : "<rank>"
                 },
                 "<steamId>" : {...}
@@ -36,6 +36,18 @@ JSON Data Format:
  }
 ```
 
+## Values:
+* \<steamid> : steamID64
+* \<vehicleId> : vehicleId of the used car
+* \<name> : the users steam name, get automatically updated on joining
+* \<refid> : the participants refid, only valid for the current session
+* \<iswet> : Whether the track is wet(1) or not(2) (session attribute wettnessAverage > 190)
+* \<rank> : the users rank for the car identified by its vehicleId
+
+
+
+
+## Features:
 Ingame chat notification for:
 
 * New personal best and previous personal best [self-info]
