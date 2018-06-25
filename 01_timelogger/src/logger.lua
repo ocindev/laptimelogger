@@ -15,7 +15,6 @@ local loggedTimes = loggedTimes
 if not loggedTimes.vehicles then loggedTimes.vehicles = {} end
 vehicles = loggedTimes.vehicles
 local vehicles = vehicles
-DeepPrint(vehicles)
 if not loggedTimes.steamids then loggedTimes.steamids = {} end
 steamids = loggedTimes.steamids
 local steamids = steamids
@@ -38,21 +37,6 @@ local msgNew = "New personal best: "
 
 local persist_at = GetServerUptimeMs() + 30000
 
-
-function DeepPrint (e)
-    -- if e is a table, we should iterate over its elements
-    if type(e) == "table" then
-        for k,v in pairs(e) do -- for every element in the table
-            print("KeyType: " .. type(k))
-            print("Key: " .. k)
-            DeepPrint(v)       -- recursively repeat the same procedure
-        end
-    else -- if not, we can just print it
-        print("ValueType: " .. type(e))
-        print("Value: " .. e)
-    end
-end
-
 --converts the time from milliseconds to xx:xx:xx format
 function millisecondsConverter(lapTime)
     if lapTime <= 0 then
@@ -66,14 +50,6 @@ function millisecondsConverter(lapTime)
         return string.format("%02d:%02d:%03d",minutes, seconds, milliseconds)
     end
 end
-
-
-function contains(table, key)
-    return table[key] ~= nil
-end
-
-
-
 
 function updateSteamIdTable(steamid, name)
     steamids[steamid] = name
