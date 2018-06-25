@@ -9,11 +9,8 @@ This lua addon logs valid personal best laptimes for participants on the Dedicat
 ...
  "loggedTimes" : {
     "steamids" : {
-        "<steamId>" : {
-        "name" : "<name>"
-        },
-        "<steamId>" : {
-        "name" : "<name>"
+        "<steamId>" : "<name>",
+        "<steamId>" : "<name>"
         }
     },
     "vehicles" : {
