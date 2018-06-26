@@ -54,3 +54,17 @@ Chat commands:
 
 * !rank - outputs rank for the current car
 * !pb - outputs personal best for the current car
+
+
+## Installation:
+
+* Download the [latest release](https://github.com/nweiser94/lua_scripts/tree/logv1.0) and extract it
+* Copy the logger folder into \<DedicatedServerPath>\lua\
+* Add the addon to the server.cfg
+
+```javascript
+luaApiAddons : [
+    ... // other addons
+    "logger",
+]
+```
