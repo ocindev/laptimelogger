@@ -1,4 +1,0 @@
-version : [0, 1]
-description : "Lua helper library"
-apiVersion : [3, 0]
-files : ["lib_helper.lua"]
