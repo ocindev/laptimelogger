@@ -70,7 +70,20 @@ function compare(a, b)
     return a.lapTime < b.lapTime
 end
 
-function updateRankings(list)
+function updateRankings(list, infoObject)
+    local found = false
+    for i, v in ipairs(list) do
+        if v.steamId == infoObject.steamId then
+            found = true
+            if v.lapTime > infoObject.lapTime then
+                v.lapTime = infoObject.lapTime
+            end
+            
+        end
+    end 
+    if not found then 
+        table.insert(list, infoObject)
+    end
     table.sort(list, compare)
     for i, v in ipairs(list) do
         v.rank = i
@@ -102,12 +115,13 @@ function add_new_vehicleEntry(event, participant)
     local logtime = os.date("%Y-%m-%d %H:%M:%S")
 
     -- Calculate,Update and return internal vehicle ranking
+    
     if not vehicles[info.vehicleId].rankings then
         vehicles[info.vehicleId].rankings = {}
     end
     rankings = vehicles[info.vehicleId].rankings
-    table.insert(rankings, {lapTime = info.lapTime, name = info.name, refId = info.refId, steamId = steamid})
-    updateRankings(rankings)
+    local prevRank = getRanking(rankings, steamid)
+    updateRankings(rankings,{lapTime = info.lapTime, name = info.name, refId = info.refId, steamId = steamid})
     local rank = getRanking(rankings, steamid)
 
 
