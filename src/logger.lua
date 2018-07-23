@@ -26,6 +26,8 @@ local extractInformation
 local millisecondsConverter
 local updateSteamIdTable
 local retrieveSteamID
+local compare
+local updateRankings
 
 --Field declarations
 local lapTimes = {}
@@ -64,6 +66,25 @@ function retrieveSteamID(name)
     end
 end
 
+function compare(a, b)
+    return a.lapTime < b.lapTime
+end
+
+function updateRankings(list)
+    table.sort(list, compare)
+    for i, v in ipairs(list) do
+        v.rank = i
+    end
+end
+
+function getRanking(list, steamid)
+    for i, v in ipairs(list) do
+        if v.steamId == steamid then
+            return v.rank
+        end
+    end
+end
+
 --Adds the entry to the vehicles list
 function add_new_vehicleEntry(event, participant)
     local info = extractInformation(participant, event)
@@ -79,6 +100,16 @@ function add_new_vehicleEntry(event, participant)
     vTimes = vehicles[info.vehicleId].lapTimes
     
     local logtime = os.date("%Y-%m-%d %H:%M:%S")
+
+    -- Calculate,Update and return internal vehicle ranking
+    if not vehicles[info.vehicleId].rankings then
+        vehicles[info.vehicleId].rankings = {}
+    end
+    rankings = vehicles[info.vehicleId].rankings
+    table.insert(rankings, {lapTime = info.lapTime, name = info.name, refId = info.refId, steamId = steamid})
+    updateRankings(rankings)
+    local rank = getRanking(rankings, steamid)
+
 
     SendChatToAll( "* LAP: " .. info.name .. " just did a " ..  millisecondsConverter(info.lapTime) .. " in a " .. get_vehicle_name_by_id(info.vehicleId) )
 
@@ -96,6 +127,8 @@ function add_new_vehicleEntry(event, participant)
         vTimes[steamid] = info
         dirtyFlag = true  
     end
+
+    
 end
 
 --Creates an object holding participant and event related infos
