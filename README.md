@@ -51,19 +51,26 @@ Ingame chat notification for:
 
 Chat commands: 
 
-* !rank - outputs rank for the current car
-* !pb - outputs personal best for the current car
+* !rank - outputs rank for the current car [WORK IN PROGRESS]
+* !pb - outputs personal best for the current car [WORK IN PROGRESS]
 
 
 ## Installation:
 
 * Download the [latest release](https://github.com/nweiser94/lua_scripts/tree/logv1.0) and extract it
-* Copy the logger folder into \<DedicatedServerPath>\lua\
+* Copy the lap_logger and the lib_helper into \<DedicatedServerPath>\lua\
 * Add the addon to the server.cfg
 
 ```javascript
 luaApiAddons : [
     ... // other addons
     "logger",
+]
+```
+* Add the library to the server.cfg
+```javascript
+luaAllowedLibraries : [
+    ... // other libraries
+    "lib_helper",
 ]
 ```
