@@ -21,22 +21,10 @@ This lua addon logs valid personal best laptimes for participants on the Dedicat
                     "refId" : "<refId>",
                     "vehicleId" : "<vehicleId>",
                     "isWet" : "<isWet>",
-                },
-                "<steamId>" : {...}
-            },
-            "rankings" : {
-                {
-                    "lapTime" : "<laptime>",
-                    "name" : "<name>",
-                    "refId" : "<refId>",
-                    "steamId" : "<steamId>"
                     "rank" : "<rank>"
                 },
-                {
-
-                }
-            }
-            
+                "<steamId>" : {...}
+            }   
         },
         "<vehicleId>" : {...}
     }
