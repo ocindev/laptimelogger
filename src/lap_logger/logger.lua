@@ -78,7 +78,8 @@ function add_new_vehicleEntry(event, participant)
         SendChatToAll( "* LAP: " .. info.name .. " just did a " ..  lib_helper:millisecondsConverter(info.lapTime) .. " in a " .. get_vehicle_name_by_id(info.vehicleId) .. " Rank:#" .. newRank )
         dirtyFlag = true     
     end
-    if vTimes[steamid].lapTime > info.lapTime then 
+    if vTimes[steamid].lapTime > info.lapTime then
+        vTimes = lib_helper:sortRankingAndReturn(vTimes)
         local prevRank = lib_helper:getRanking(vTimes, steamid)
         vTimes[steamid] = {}
         vTimes[steamid] = info
