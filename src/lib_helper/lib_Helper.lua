@@ -75,15 +75,6 @@ function LibHelper:updateRankings(sortedKeys, lapTimes )
     return lapTimes
 end
 
--- Returns the ranking for the participant specifed by its steamid
-function LibHelper:getRanking(list, steamid)
-    for i, v in ipairs(list) do
-        if v.steamId == steamid then
-            return v.rank
-        end
-    end
-end
-
 
 
 

@@ -73,18 +73,18 @@ function add_new_vehicleEntry(event, participant)
         vTimes[steamid] = {}
         vTimes[steamid] = info
         vTimes = lib_helper:sortRankingAndReturn(vTimes)
-        local newRank = lib_helper:getRanking(vTimes, steamid)
+        local newRank = vTimes[steamid].rank
         SendChatToMember(info.refId, msgNew .. lib_helper:millisecondsConverter(info.lapTime) .. " Rank:#" .. newRank)
         SendChatToAll( "* LAP: " .. info.name .. " just did a " ..  lib_helper:millisecondsConverter(info.lapTime) .. " in a " .. get_vehicle_name_by_id(info.vehicleId) .. " Rank:#" .. newRank )
         dirtyFlag = true     
     end
     if vTimes[steamid].lapTime > info.lapTime then
         vTimes = lib_helper:sortRankingAndReturn(vTimes)
-        local prevRank = lib_helper:getRanking(vTimes, steamid)
+        local prevRank = vTimes[steamid].rank
         vTimes[steamid] = {}
         vTimes[steamid] = info
         vTimes = lib_helper:sortRankingAndReturn(vTimes)
-        local newRank = lib_helper:getRanking(vTimes, steamid)
+        local newRank = vTimes[steamid].rank
         print ( "[" .. logtime .. "] LAP: * " .. info.name .. " just did a " .. lib_helper:millisecondsConverter(info.lapTime) .. " Rank:#" .. newRank .. " in a ".. get_vehicle_name_by_id(info.vehicleId) .. ". Previous best was " .. lib_helper:millisecondsConverter(vTimes[steamid].lapTime) .. " Rank:#" .. prevRank)
         SendChatToMember(info.refId, msgNew  .. lib_helper:millisecondsConverter(info.lapTime) .. " Rank:#" .. newRank .. " " .. msgPrevious .. lib_helper:millisecondsConverter(vTimes[steamid].lapTime) .. " Rank:#".. prevRank) 
         SendChatToAll( "* LAP: " .. info.name .. " just did a " ..  lib_helper:millisecondsConverter(info.lapTime) .. " in a " .. get_vehicle_name_by_id(info.vehicleId) .. " Rank:#" .. newRank )
