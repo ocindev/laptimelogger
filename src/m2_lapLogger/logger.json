@@ -1,4 +1,4 @@
 version : [1, 0]
 description : "Laptime logger"
 apiVersion : [3, 0]
-files : ["logger.lua"]
+files : ["logger.lua", "ranking.lua"]

@@ -1,8 +1,0 @@
-// Addon version. Used only as informational value.
-version : [1,0]
-
-description : "Helper library addon - laptime logger helper functions"
-
-apiVersion : [3, 0]
-
-files : ["lib_helper.lua"]

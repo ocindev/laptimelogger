@@ -1,20 +1,7 @@
---[[
-    Helper library for the laptimelogger Lua addon.
---]]
-
-local LibHelper = {}
-
-
-
-function LibHelper.new()
-    local instance = {}
-    setmetatable(instance, LibHelper)
-    return instance
-end
 
 
 -- Sorts a associative table based on its associated value.
-function LibHelper:sortAssociativeTable(tbl, sortFunction)
+function sortAssociativeTable(tbl, sortFunction)
     local keys = {}
     for key in pairs(tbl) do
         table.insert(keys, key)
@@ -26,16 +13,14 @@ function LibHelper:sortAssociativeTable(tbl, sortFunction)
 end
 
 -- Sorts and returns a laptime table
-function LibHelper:sortRankingAndReturn(tbl)
+function sortRankingAndReturn(tbl)
     local sortedKeys = self:sortAssociativeTable(tbl, function(a,b) return a.lapTime < b.lapTime end)
     return self:updateRankings(sortedKeys, tbl)
 end
 
 
-
-
 -- Converts a laptime in ms into an human readable format.
-function LibHelper:millisecondsConverter(time)
+function millisecondsConverter(time)
     if lapTime <= 0 then
         return "00:00:00"
     else
@@ -49,7 +34,7 @@ function LibHelper:millisecondsConverter(time)
 end
 
 -- Creates an object holding participant and event related infos
-function LibHelper:extractParticipantInformation(participant, event, wetness)
+function extractParticipantInformation(participant, event, wetness)
     local logtime = os.time(os.date("!*t"))
     local iswet = 0
     if wetness > 190 then
@@ -65,19 +50,11 @@ function LibHelper:extractParticipantInformation(participant, event, wetness)
     }
 end
 
-
-
 -- Updates the rankings of a given lapTime table
-function LibHelper:updateRankings(sortedKeys, lapTimes )
+function updateRankings(sortedKeys, lapTimes )
     for i, v in ipairs(sortedKeys) do
             lapTimes[v].rank = i
     end
     return lapTimes
 end
-
-
-
-
-
-
 
