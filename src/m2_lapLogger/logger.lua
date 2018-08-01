@@ -78,13 +78,13 @@ function add_new_vehicleEntry(event, participant)
     end
     if vTimes[steamid].lapTime > info.lapTime then
         vTimes = sortRankingAndReturn(vTimes)
-        local prevRank = vTimes[steamid].rank
+        local prevInfo = { rank = vTimes[steamid].rank, time = vTimes[steamid].lapTime }
         vTimes[steamid] = {}
         vTimes[steamid] = info
         vTimes = sortRankingAndReturn(vTimes)
         local newRank = vTimes[steamid].rank
-        print ( "[" .. logtime .. "] LAP: * " .. info.name .. " just did a " .. millisecondsConverter(info.lapTime) .. " Rank:#" .. newRank .. " in a ".. get_vehicle_name_by_id(info.vehicleId) .. ". Previous best was " .. millisecondsConverter(vTimes[steamid].lapTime) .. " Rank:#" .. prevRank)
-        SendChatToMember(info.refId, msgNew  .. millisecondsConverter(info.lapTime) .. " Rank:#" .. newRank .. " " .. msgPrevious .. millisecondsConverter(vTimes[steamid].lapTime) .. " Rank:#".. prevRank) 
+        print ( "[" .. logtime .. "] LAP: * " .. info.name .. " just did a " .. millisecondsConverter(info.lapTime) .. " Rank:#" .. newRank .. " in a ".. get_vehicle_name_by_id(info.vehicleId) .. ". Previous best was " .. millisecondsConverter(prevInfo.time) .. " Rank:#" .. prevInfo.rank )
+        SendChatToMember(info.refId, msgNew  .. millisecondsConverter(info.lapTime) .. " Rank:#" .. newRank .. " " .. msgPrevious .. millisecondsConverter(prevInfo.time) .. " Rank:#".. prevInfo.rank) 
         SendChatToAll( "* LAP: " .. info.name .. " just did a " ..  millisecondsConverter(info.lapTime) .. " in a " .. get_vehicle_name_by_id(info.vehicleId) .. " Rank:#" .. newRank )
         dirtyFlag = true  
     end
@@ -109,6 +109,12 @@ function addon_callback(callback, ...)
                 local name = event.attributes.Name
                 updateSteamIdTable(steamid, name)
                 print( retrieveSteamID(name) )
+            end
+            if event.name == "PlayerChat" then
+                local refid = event.refid
+                local player = session.members[refid]
+                local message = event.attributes.message
+                handleChatCommand(refid, player, message)
             end
         end
 

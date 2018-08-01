@@ -19,6 +19,12 @@ function sortRankingAndReturn(tbl)
 end
 
 
+function handleChatCommand(refid, player, message)
+    print("Do stuff")
+
+end
+
+
 -- Converts a laptime in ms into an human readable format.
 function millisecondsConverter(time)
     if lapTime <= 0 then
